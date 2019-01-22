@@ -8,7 +8,7 @@ import (
 	"syscall"
 	"time"
 
-	"github.com/9d77v/go-lib/clients/etcd"
+	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
 	"github.com/coreos/etcd/clientv3"
 	"github.com/coreos/etcd/clientv3/naming"
 	grpc_middleware "github.com/grpc-ecosystem/go-grpc-middleware"

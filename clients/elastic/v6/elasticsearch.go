@@ -8,9 +8,9 @@ import (
 	"strings"
 	"time"
 
-	"github.com/9d77v/go-lib/clients/config"
-	"github.com/9d77v/go-lib/utils"
-	"github.com/9d77v/go-lib/worker"
+	"github.com/Cloudera-Sz/golang-micro/clients/config"
+	"github.com/Cloudera-Sz/golang-micro/utils"
+	"github.com/Cloudera-Sz/golang-micro/worker"
 	"github.com/olivere/elastic"
 )
 

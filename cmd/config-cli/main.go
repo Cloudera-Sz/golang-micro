@@ -5,7 +5,7 @@ import (
 	"log"
 	"time"
 
-	"github.com/9d77v/go-lib/clients/config/cli"
+	"github.com/Cloudera-Sz/golang-micro/clients/config/cli"
 )
 
 func main() {

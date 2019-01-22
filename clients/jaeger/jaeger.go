@@ -7,8 +7,8 @@ import (
 	"os"
 	"time"
 
-	"github.com/9d77v/go-lib/clients/config"
-	"github.com/9d77v/go-lib/clients/etcd"
+	"github.com/Cloudera-Sz/golang-micro/clients/config"
+	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
 	opentracing "github.com/opentracing/opentracing-go"
 	jaeger "github.com/uber/jaeger-client-go"
 	jaegercfg "github.com/uber/jaeger-client-go/config"

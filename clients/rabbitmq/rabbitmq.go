@@ -9,9 +9,9 @@ import (
 	"os"
 	"time"
 
-	"github.com/9d77v/go-lib/clients/config"
-	"github.com/9d77v/go-lib/clients/etcd"
-	"github.com/9d77v/go-lib/clients/jaeger"
+	"github.com/Cloudera-Sz/golang-micro/clients/config"
+	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
+	"github.com/Cloudera-Sz/golang-micro/clients/jaeger"
 	"github.com/opentracing-contrib/go-amqp/amqptracer"
 	opentracing "github.com/opentracing/opentracing-go"
 	tags "github.com/opentracing/opentracing-go/ext"

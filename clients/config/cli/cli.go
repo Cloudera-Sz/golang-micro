@@ -9,10 +9,10 @@ import (
 	"strings"
 	"time"
 
-	yaml "gopkg.in/yaml.v2"
+	yaml "github.com/go-yaml/yaml"
 
-	"github.com/9d77v/go-lib/clients/config"
-	"github.com/9d77v/go-lib/clients/etcd"
+	"github.com/Cloudera-Sz/golang-micro/clients/config"
+	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
 )
 
 //NewConfig get configs from directory

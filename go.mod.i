@@ -17,6 +17,6 @@ require (
 	github.com/streadway/amqp v0.0.0-20181107104731-27835f1a64e9
 	github.com/uber/jaeger-client-go v2.15.0+incompatible
 	github.com/uber/jaeger-lib v1.5.0
-	google.golang.org/grpc v1.16.0
-	gopkg.in/yaml.v2 v2.2.2
+	github.com/grpc/grpc-go v1.16.0
+	github.com/go-yaml/yaml v0.0.0-20181115110504-51d6538a90f8 // indirect
 )

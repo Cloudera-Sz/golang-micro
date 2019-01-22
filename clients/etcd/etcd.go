@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/coreos/etcd/clientv3"
-	yaml "gopkg.in/yaml.v2"
+	yaml "github.com/go-yaml/yaml"
 )
 
 //Client .

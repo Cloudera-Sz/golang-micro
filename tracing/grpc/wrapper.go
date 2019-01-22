@@ -8,7 +8,7 @@ import (
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/grpclog"
 	"google.golang.org/grpc/metadata"
-	"queen.com/x/tracing"
+	"github.com/Cloudera-Sz/golang-micro/tracing"
 	"strings"
 )
 

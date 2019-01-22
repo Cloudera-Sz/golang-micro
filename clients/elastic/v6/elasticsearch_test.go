@@ -5,7 +5,7 @@ import (
 	"reflect"
 	"testing"
 
-	"github.com/9d77v/go-lib/clients/config"
+	"github.com/Cloudera-Sz/golang-micro/clients/config"
 )
 
 const mapping = `

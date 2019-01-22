@@ -3,11 +3,9 @@ package main
 import (
 	"fmt"
 	"os"
-	"queen.com/m/merchant/character_address/pb"
-	"queen.com/x/tracing"
-
+	"github.com/Cloudera-Sz/golang-micro/tracing"
 	"github.com/gin-gonic/gin"
-	"queen.com/x/tracing/api"
+	"github.com/Cloudera-Sz/golang-micro/tracing/api"
 )
 
 func main() {
@@ -30,7 +28,7 @@ func main() {
 	r.Use(p)
 
 	r.GET("/", func(c *gin.Context) {
-		client := pb.New(c)
+		client := pb.New()
 		response, err := client.Gets(&pb.CharacterAddressGetsRequest{
 			AddressIds: []int64{2009},
 			PageIndex:  1,

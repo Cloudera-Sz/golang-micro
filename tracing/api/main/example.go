@@ -4,10 +4,10 @@ import (
 	"fmt"
 	"github.com/go-resty/resty"
 	"os"
-	"queen.com/x/tracing"
+	"github.com/Cloudera-Sz/golang-micro/tracing"
 
 	"github.com/gin-gonic/gin"
-	"queen.com/x/tracing/api"
+	"github.com/Cloudera-Sz/golang-micro/tracing/api"
 )
 
 func main() {

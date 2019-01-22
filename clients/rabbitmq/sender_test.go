@@ -5,7 +5,7 @@ import (
 	"testing"
 	"time"
 
-	"github.com/9d77v/go-lib/clients/etcd"
+	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
 	"github.com/streadway/amqp"
 )
 
