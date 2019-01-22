@@ -21,7 +21,7 @@ type Client struct {
 func NewClient(dialTimeout time.Duration) (*Client, error) {
 	etcdServer := os.Getenv("ETCD_SERVER")
 	if etcdServer == "" {
-		etcdServer = "localhost:7500"
+		etcdServer = "localhost:2379"
 	}
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{etcdServer},

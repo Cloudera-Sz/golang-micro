@@ -54,8 +54,7 @@ func NewConfig(configPath string) (map[string]*config.AppConfig, *config.Default
 }
 
 //SyncConfig write changed config to etcd
-func SyncConfig(dialTimeout time.Duration,
-	requestTimeout time.Duration, configPath string) error {
+func SyncConfig(dialTimeout time.Duration, requestTimeout time.Duration, configPath string) error {
 	profile := filepath.Base(configPath)
 	appConfigMap, defaultConfig := NewConfig(configPath)
 	cli, err := etcd.NewClient(dialTimeout)
