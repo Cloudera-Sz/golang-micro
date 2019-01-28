@@ -4,6 +4,9 @@ import (
 	"context"
 	"fmt"
 	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
+	"github.com/Cloudera-Sz/golang-micro/clients/gorm"
+	"github.com/Cloudera-Sz/golang-micro/example/service/order"
+	"github.com/Cloudera-Sz/golang-micro/example/service/user"
 	"os"
 	"time"
 )
@@ -31,4 +34,11 @@ func main() {
 		panic(err.Error())
 	}
 	fmt.Println(v)
+
+	db, err := gorm.NewClientFromEtcd(client, "user", "dev", &order.Order{}, &user.User{})
+	if err != nil {
+		panic(err.Error())
+	}
+	db.Model(&user.User{Id: 1, UserName: "admin"}).Update(&user.User{Id: 1})
+	time.Sleep(time.Duration(20) * time.Second)
 }

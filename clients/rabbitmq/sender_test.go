@@ -15,7 +15,7 @@ func TestSendHello(t *testing.T) {
 		log.Panicln(err)
 	}
 	topic := "hello2"
-	mqCli, err := NewClientFromEtcd(etcdCli, []string{topic})
+	mqCli, err := NewClientFromEtcd(etcdCli, "user", "dev", []string{topic})
 
 	body := "hello"
 	err = mqCli.Chs[topic].Publish(

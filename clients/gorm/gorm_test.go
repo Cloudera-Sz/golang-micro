@@ -28,7 +28,7 @@ func TestNewClientFromEtcd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := NewClientFromEtcd(tt.args.etcdCli, tt.args.values...)
+			_, err := NewClientFromEtcd(tt.args.etcdCli, "order", "dev", tt.args.values...)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("NewClientFromEtcd() error = %v, wantErr %v", err, tt.wantErr)
 				return

@@ -79,9 +79,13 @@ func InitGlobalTracer(config *config.JaegerConfig) (io.Closer, error) {
 }
 
 //NewJaegerConfig get config from etcd
-func NewJaegerConfig(etcdCli *etcd.Client) (string, *config.JaegerConfig) {
-	appName := os.Getenv("APP_NAME")
-	profile := os.Getenv("PROFILE")
+func NewJaegerConfig(etcdCli *etcd.Client, appName, profile string) (string, *config.JaegerConfig) {
+	if appName == "" {
+		appName = os.Getenv("APP_NAME")
+	}
+	if profile == "" {
+		profile = os.Getenv("PROFILE")
+	}
 	jaegerKey := etcdCli.GetEtcdKey(profile, appName, "jaeger")
 	jaegerConfig := new(config.JaegerConfig)
 	err := etcdCli.GetValue(5*time.Second, jaegerKey, jaegerConfig)
@@ -93,8 +97,8 @@ func NewJaegerConfig(etcdCli *etcd.Client) (string, *config.JaegerConfig) {
 }
 
 //InitTracerFromEtcd ...
-func InitTracerFromEtcd(etcdCli *etcd.Client, serviceName string) (tracer opentracing.Tracer, closer io.Closer, err error) {
-	jaegerKey, jaegerConfig := NewJaegerConfig(etcdCli)
+func InitTracerFromEtcd(etcdCli *etcd.Client, appName, profile string, serviceName string) (tracer opentracing.Tracer, closer io.Closer, err error) {
+	jaegerKey, jaegerConfig := NewJaegerConfig(etcdCli, appName, profile)
 	tracer, c, err := InitTracer(jaegerConfig, serviceName)
 	if err != nil {
 		log.Println("jaeger connect failed")
@@ -117,8 +121,8 @@ func InitTracerFromEtcd(etcdCli *etcd.Client, serviceName string) (tracer opentr
 }
 
 //InitGlobalTracerFromEtcd ...
-func InitGlobalTracerFromEtcd(etcdCli *etcd.Client) (closer io.Closer, err error) {
-	jaegerKey, jaegerConfig := NewJaegerConfig(etcdCli)
+func InitGlobalTracerFromEtcd(etcdCli *etcd.Client, appName, profile string) (closer io.Closer, err error) {
+	jaegerKey, jaegerConfig := NewJaegerConfig(etcdCli, appName, profile)
 	c, err := InitGlobalTracer(jaegerConfig)
 	if err != nil {
 		log.Println("jaeger connect failed")

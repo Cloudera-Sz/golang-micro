@@ -68,9 +68,13 @@ func NewClient(config *config.RabbitmqConfig, queueNames []string) (*Client, err
 }
 
 //NewClientFromEtcd init gorm from etcd config and watch config to update gorm
-func NewClientFromEtcd(etcdCli *etcd.Client, queueNames []string) (mqCli *Client, err error) {
-	appName := os.Getenv("APP_NAME")
-	profile := os.Getenv("PROFILE")
+func NewClientFromEtcd(etcdCli *etcd.Client, appName, profile string, queueNames []string) (mqCli *Client, err error) {
+	if appName == "" {
+		appName = os.Getenv("APP_NAME")
+	}
+	if profile == "" {
+		profile = os.Getenv("PROFILE")
+	}
 	mqKey := etcdCli.GetEtcdKey(profile, appName, "rabbitmq")
 	mqConfig := new(config.RabbitmqConfig)
 	err = etcdCli.GetValue(5*time.Second, mqKey, mqConfig)
@@ -81,7 +85,7 @@ func NewClientFromEtcd(etcdCli *etcd.Client, queueNames []string) (mqCli *Client
 	if err != nil {
 		log.Println("rabbitmq connect failed")
 	}
-	tracer, closer, err := jaeger.InitTracerFromEtcd(etcdCli, "rabbitmq")
+	tracer, closer, err := jaeger.InitTracerFromEtcd(etcdCli, appName, profile, "rabbitmq")
 	mq.Tracer = tracer
 	mq.Closer = closer
 	mqCli = mq

@@ -1,0 +1,34 @@
+db:
+  default:
+    driver: mysql
+    host: 192.168.1.50
+    port: 3306
+    user: DemoCloudUser
+    password: 123456@lcb
+    max_idle_conns: 10
+    max_open_conns: 100
+    enable_log: true
+redis:
+  default:
+    host: 192.168.1.249:6379
+    password: lcb@redis.com
+jaeger:
+  default:
+    sampler:                  
+      host_port: 192.168.1.52:6831
+      refresh_interval: 10     
+    reporter:                 
+      host_port: 192.168.1.52:6831
+      flush_interval: 5        
+      queue_size: 1000 
+      log_spans: true
+rabbitmq:
+  default:
+    host: 192.168.1.22
+    port: 5672
+    user: admin
+    password: 123456
+kuaidi100:
+  key: aaa
+  secret: bbb
+  customer: ccc

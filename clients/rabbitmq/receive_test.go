@@ -14,7 +14,7 @@ func TestReceiveHello(t *testing.T) {
 		log.Panicln(err)
 	}
 	topic := "hello2"
-	mqCli, err := NewClientFromEtcd(etcdCli, []string{topic})
+	mqCli, err := NewClientFromEtcd(etcdCli, "user", "dev", []string{topic})
 
 	msgs, err := mqCli.Chs[topic].Consume(
 		topic, // queue

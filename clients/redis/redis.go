@@ -42,9 +42,13 @@ func NewClient(config *config.RedisConfig) (*Client, error) {
 }
 
 //NewClientFromEtcd init redis from etcd config and watch config to update redis
-func NewClientFromEtcd(etcdCli *etcd.Client) (redisCli *Client, err error) {
-	appName := os.Getenv("APP_NAME")
-	profile := os.Getenv("PROFILE")
+func NewClientFromEtcd(etcdCli *etcd.Client, appName, profile string) (redisCli *Client, err error) {
+	if appName == "" {
+		appName = os.Getenv("APP_NAME")
+	}
+	if profile == "" {
+		profile = os.Getenv("PROFILE")
+	}
 	redisKey := etcdCli.GetEtcdKey(profile, appName, "redis")
 	redisConfig := new(config.RedisConfig)
 	err = etcdCli.GetValue(5*time.Second, redisKey, redisConfig)
@@ -55,7 +59,7 @@ func NewClientFromEtcd(etcdCli *etcd.Client) (redisCli *Client, err error) {
 	if err != nil {
 		log.Println("redis connect failed")
 	}
-	tracer, closer, err := jaeger.InitTracerFromEtcd(etcdCli, "redis")
+	tracer, closer, err := jaeger.InitTracerFromEtcd(etcdCli, appName, profile, "redis")
 	redis.Tracer = tracer
 	redis.Closer = closer
 	redisCli = redis

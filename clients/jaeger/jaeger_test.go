@@ -28,7 +28,7 @@ func TestInitTracerFromEtcd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, _, err := InitTracerFromEtcd(tt.args.etcdCli, tt.args.serviceName)
+			_, _, err := InitTracerFromEtcd(tt.args.etcdCli, "user", "dev", tt.args.serviceName)
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InitTracerFromEtcd() error = %v, wantErr %v", err, tt.wantErr)
 				return
@@ -63,7 +63,7 @@ func TestInitGlobalTracerFromEtcd(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			_, err := InitGlobalTracerFromEtcd(tt.args.etcdCli)
+			_, err := InitGlobalTracerFromEtcd(tt.args.etcdCli, "user", "dev")
 			if (err != nil) != tt.wantErr {
 				t.Errorf("InitGlobalTracerFromEtcd() error = %v, wantErr %v", err, tt.wantErr)
 				return

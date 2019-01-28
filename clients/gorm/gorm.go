@@ -7,15 +7,16 @@ import (
 	"io"
 	"log"
 	"os"
-	"strings"
 	"time"
 
 	"github.com/Cloudera-Sz/golang-micro/clients/config"
 	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
 	"github.com/Cloudera-Sz/golang-micro/clients/jaeger"
 	"github.com/jinzhu/gorm"
-	opentracing "github.com/opentracing/opentracing-go"
+	"github.com/opentracing/opentracing-go"
 
+	_ "github.com/jinzhu/gorm/dialects/mssql"
+	_ "github.com/jinzhu/gorm/dialects/mysql"
 	//postgres
 	_ "github.com/jinzhu/gorm/dialects/postgres"
 )
@@ -39,27 +40,62 @@ func NewClient(config *config.DBConfig) (*Client, error) {
 		return nil, errors.New("db config is not exist")
 	}
 	//support postgres
-	if config.Driver != "postgres" {
+	//if config.Driver != "postgres" {
+	//	return nil, errors.New("unsupport driver,now only support postgres")
+	//}
+	var db *gorm.DB
+	var err error
+	dbURL := ""
+	switch config.Driver {
+	case "mysql":
+		if dbURL == "" {
+			dbURL = fmt.Sprintf("%s:%s@tcp(%s:%d)/%s?charset=utf8mb4&parseTime=True",
+				config.User, config.Password, config.Host, config.Port, config.Name)
+			//"gorm:gorm@tcp(localhost:3306)/gorm?charset=utf8&parseTime=True"
+		}
+		db, err = gorm.Open("mysql", dbURL)
+	case "postgres":
+		if dbURL == "" {
+			dbURL = fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s",
+				config.Host, config.Port, config.User, config.Name, config.Password)
+			//"user=gorm password=gorm DB.name=gorm port=5432 sslmode=disable"
+		}
+		db, err = gorm.Open("postgres", dbURL)
+	case "mssql":
+		// CREATE LOGIN gorm WITH PASSWORD = 'LoremIpsum86';
+		// CREATE DATABASE gorm;
+		// USE gorm;
+		// CREATE USER gorm FROM LOGIN gorm;
+		// sp_changedbowner 'gorm';
+		fmt.Println("testing mssql...")
+		if dbURL == "" {
+			dbURL = fmt.Sprintf("sqlserver://%s:%s@%s:%d?database=%s",
+				config.User, config.Password, config.Host, config.Port, config.Name)
+			//"sqlserver://gorm:LoremIpsum86@localhost:1433?database=gorm"
+		}
+		db, err = gorm.Open("mssql", dbURL)
+	default:
 		return nil, errors.New("unsupport driver,now only support postgres")
+		//db, err = gorm.Open("sqlite3", filepath.Join(os.TempDir(), "gorm.db"))
 	}
-	//auto create database
-	dbURL := fmt.Sprintf("host=%s port=%d user=%s sslmode=disable password=%s",
-		config.Host, config.Port, config.User, config.Password)
-	dbInit, err := gorm.Open(config.Driver, dbURL)
-	if err != nil {
-		return nil, err
-	}
-	defer dbInit.Close()
-	initSQL := fmt.Sprintf("CREATE DATABASE \"%s\" WITH  OWNER =%s ENCODING = 'UTF8' CONNECTION LIMIT=-1;",
-		config.Name, config.User)
-	err = dbInit.Exec(initSQL).Error
-	if err != nil && !strings.Contains(err.Error(), "already exists") {
-		return nil, err
-	}
-	dbWithNameURL := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s",
-		config.Host, config.Port, config.User, config.Name, config.Password)
+	////auto create database
+	//dbURL = fmt.Sprintf("host=%s port=%d user=%s sslmode=disable password=%s",
+	//	config.Host, config.Port, config.User, config.Password)
+	//dbInit, err := gorm.Open(config.Driver, dbURL)
+	//if err != nil {
+	//	return nil, err
+	//}
+	//defer dbInit.Close()
+	//initSQL := fmt.Sprintf("CREATE DATABASE \"%s\" WITH  OWNER =%s ENCODING = 'UTF8' CONNECTION LIMIT=-1;",
+	//	config.Name, config.User)
+	//err = dbInit.Exec(initSQL).Error
+	//if err != nil && !strings.Contains(err.Error(), "already exists") {
+	//	return nil, err
+	//}
+	//dbWithNameURL := fmt.Sprintf("host=%s port=%d user=%s dbname=%s sslmode=disable password=%s",
+	//	config.Host, config.Port, config.User, config.Name, config.Password)
+
 	//global database connection
-	db, err := gorm.Open(config.Driver, dbWithNameURL)
 	if err != nil {
 		return nil, err
 	}
@@ -74,9 +110,13 @@ func NewClient(config *config.DBConfig) (*Client, error) {
 }
 
 //NewDBConfig get config from etcd
-func NewDBConfig(etcdCli *etcd.Client) (string, *config.DBConfig) {
-	appName := os.Getenv("APP_NAME")
-	profile := os.Getenv("PROFILE")
+func NewDBConfig(etcdCli *etcd.Client, appName, profile string) (string, *config.DBConfig) {
+	if appName == "" {
+		appName = os.Getenv("APP_NAME")
+	}
+	if profile == "" {
+		profile = os.Getenv("PROFILE")
+	}
 	dbKey := etcdCli.GetEtcdKey(profile, appName, "db")
 	dbConfig := new(config.DBConfig)
 	err := etcdCli.GetValue(5*time.Second, dbKey, dbConfig)
@@ -88,14 +128,15 @@ func NewDBConfig(etcdCli *etcd.Client) (string, *config.DBConfig) {
 }
 
 //NewClientFromEtcd init gorm from etcd config and watch config to update gorm
-func NewClientFromEtcd(etcdCli *etcd.Client, values ...interface{}) (dbCli *Client, err error) {
-	dbKey, dbConfig := NewDBConfig(etcdCli)
+func NewClientFromEtcd(etcdCli *etcd.Client, appName, profile string, values ...interface{}) (dbCli *Client, err error) {
+	dbKey, dbConfig := NewDBConfig(etcdCli, appName, profile)
 	db, err := NewClient(dbConfig)
 	if err != nil {
 		log.Println("db connect failed")
+		return nil, err
 	}
 	db.AutoMigrate(values...)
-	tracer, closer, err := jaeger.InitTracerFromEtcd(etcdCli, dbConfig.Driver)
+	tracer, closer, err := jaeger.InitTracerFromEtcd(etcdCli, appName, profile, dbConfig.Driver)
 	db.Tracer = tracer
 	db.Closer = closer
 	dbCli = db
