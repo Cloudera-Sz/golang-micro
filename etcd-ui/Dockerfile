@@ -1,23 +1,30 @@
-FROM golang:1.8 as backend
-RUN mkdir -p /go/src/github.com/soyking/e3w
-ADD . /go/src/github.com/soyking/e3w
-WORKDIR /go/src/github.com/soyking/e3w
-RUN CGO_ENABLED=0 go build
+FROM golang:1.9-alpine as builder
 
-FROM node:8 as frontend
-RUN mkdir /app
-ADD static /app
-WORKDIR /app
-RUN npm --registry=https://registry.npm.taobao.org \
---cache=$HOME/.npm/.cache/cnpm \
---disturl=https://npm.taobao.org/mirrors/node \
---userconfig=$HOME/.cnpmrc install && npm run publish
+RUN apk add -U git \
+    && go get github.com/golang/dep/...
 
-FROM alpine:latest
-RUN mkdir -p /app/static/dist /app/conf
-COPY --from=backend /go/src/github.com/soyking/e3w/e3w /app
-COPY --from=frontend /app/dist /app/static/dist
-COPY conf/config.default.ini /app/conf
-EXPOSE 8080
-WORKDIR /app
-CMD ["./e3w"]
+WORKDIR /go/src/github.com/evildecay/etcdkeeper
+
+ADD src ./
+ADD Gopkg.* ./
+
+RUN dep ensure -update \
+    && go build -o etcdkeeper.bin etcdkeeper/main.go
+
+
+FROM alpine:3.7
+
+ENV HOST="0.0.0.0"
+ENV PORT="8080"
+
+RUN apk add --no-cache ca-certificates
+
+RUN apk add --no-cache ca-certificates
+
+WORKDIR /etcdkeeper
+COPY --from=builder /go/src/github.com/evildecay/etcdkeeper/etcdkeeper.bin .
+ADD assets assets
+
+EXPOSE ${PORT}
+
+ENTRYPOINT ./etcdkeeper.bin -h $HOST -p $PORT

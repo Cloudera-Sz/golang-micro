@@ -21,12 +21,12 @@ func main() {
 		panic(err.Error())
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), time.Duration(5)*time.Second)
-	_, err = client.Put(ctx, "test", "test_etcd")
+	_, err = client.Put(ctx, "/test", "test_etcd")
 	cancel()
 	if err != nil {
 		panic(err.Error())
 	}
-	v, err := client.Get(context.Background(), "test")
+	v, err := client.Get(context.Background(), "/ttt")
 	if err != nil {
 		panic(err.Error())
 	}

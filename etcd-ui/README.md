@@ -1,89 +1,52 @@
-e3w
-===
-
-etcd v3 Web UI based on [Golang](https://golang.org/) && [React](https://facebook.github.io/react/), copy from [consul ui](https://github.com/hashicorp/consul/tree/master/ui) :)
-
-supporting hierarchy on etcd v3, based on [e3ch](https://github.com/soyking/e3ch)
-
-## Quick Start
-
-```
-git clone https://github.com/soyking/e3w.git
-cd e3w
-docker-compose up
-# open http://localhost:8080
-```
-
-Or use docker image by `docker pull soyking/e3w`, more details in `Dockerfile` and `docker-compose.yml`
-
-## Overview
-
-KEY/VALUE
-
-![](./images/kv.png)
-
-MEMBERS
-
-![](./images/members.png)
-
-ROLES
-
-![](./images/roles.png)
-
-USERS
-
-![](./images/users.png)
-
-SETTING
-
-![](./images/setting.png)
+![image](https://github.com/evildecay/etcdkeeper/blob/master/logo/logo-horizontal.png)
+## ETCD Keeper
+* Lightweight etcd web client.
+* Support etcd 2.x and etcd 3.x.
+* The server uses the etcd go client interface, and the server compiles with the etcd client package.
+* Based easyui framework to achieve(easyui license [easyui website](http://www.jeasyui.com)).
 
 ## Usage
-
-1.Fetch the project `go get github.com/soyking/e3w`
-
-
-2.frontend
-
+* Run etcdkeeper.exe (windows version)
+* [Download other platform releases](https://github.com/evildecay/etcdkeeper/releases).
 ```
-cd static
-npm install
-npm run publish
+  Usage of etcdkeeper.exe:
+  -h string
+        host name or ip address (default: "0.0.0.0", the http server addreess, not etcd address)
+  -p int
+        port (default 8080)
+  -sep string
+        Separator (default "/")
+  -usetls
+        use tls (only v3)
+  -cacert string
+        verify certificates of TLS-enabled secure servers using this CA bundle (only v3)
+  -cert string
+        identify secure client using this TLS certificate file (only v3)
+  -key string
+        identify secure client using this TLS key file (only v3)
 ```
+* Open your browser and enter the address: http://127.0.0.1:8080/etcdkeeper
+* Click on the version of the title to select the version of ETCD. The default is V3. Reopening will remember your choice.
+* Right click on the tree node to add or delete.
+* Etcd address can be modified by default to the localhost. If you change, press the Enter key to take effect.
 
-3.backend
+## Features
+* Etcd client view, Add, update or delete nodes.
+* Content edits use the ace editor([Ace editor](https://ace.c9.io)). Support toml,ini,yaml,json,xml and so on to highlight view.
+* Content format. (Currently only support json, Other types can be extended later) Thanks jim3ma for his contribution.[@jim3ma]( https://github.com/jim3ma)
 
-a. Start etcd, such as [goreman](https://github.com/coreos/etcd/#running-a-local-etcd-cluster)
+## Future Features
+* Import and export.
+* Content simple filter search.
 
-b. Install packages by [dep](https://github.com/golang/dep) if needed, `dep ensure`
+## Special Note
+Because the etcdv3 version uses the new storage concept, without the catalog concept, the client uses the previous default "/" delimiter to view. See the documentation for etcdv3 [clientv3 doc](https://godoc.org/github.com/coreos/etcd/clientv3).
 
-c. Edit conf/config.default.ini if needed, `go build && ./e3w`
+## Screenshots
+![image](https://github.com/evildecay/etcdkeeper/blob/master/screenshots/ui.png)
 
-d. For auth:
+## Demo
+![image](https://github.com/evildecay/etcdkeeper/blob/master/screenshots/ui.gif)
 
-```
-ETCDCTL_API=3 etcdctl auth enable
-# edit conf/config.default.ini[app]#auth
-./e3w
-# you could set your username and password in SETTING page
-```
-
-4.build image
-
-Install dependencies in 3.b, then run `docker build -t soyking/e3w .`
-
-## Notice
-
-- When you want to add some permissions in directories to a user, the implement of hierarchy in [e3ch](https://github.com/soyking/e3ch) requires you to set a directory's READ permission. For example, if role `roleA` has the permission of directory `dir1/dir2`, then it should have permissions:
-
-	```
-	KV Read:
-		dir1/dir2
-		[dir1/dir2/, dir1/dir20) (prefix dir1/dir2/)
-	KV Write:
-		[dir1/dir2/, dir1/dir20) (prefix dir1/dir2/)
-	```
-
-	When `userA` was granted `roleA`, `userA` could open the by `http://e3w-address.com/#/kv/dir1/dir2` to view and edit the key/value
-
-- Access key/value by etcdctl, [issue](https://github.com/soyking/e3w/issues/3). But the best way to access key/value is using [e3ch](https://github.com/soyking/e3ch).
+## License
+MIT

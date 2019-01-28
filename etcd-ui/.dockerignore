@@ -1,4 +1,5 @@
-images
-static/dist
-static/node_modules
+screenshots/*
 Dockerfile
+.gitignore
+LICENSE
+README.md
