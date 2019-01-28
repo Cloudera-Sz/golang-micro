@@ -2,55 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7ce53ee7-0c38-44cc-8ddb-3eebfdc4202f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/etcd-ui/.dockerignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/Dockerfile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/Gopkg.lock" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/Gopkg.toml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/LICENSE" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/conf/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/conf/config.default.ini" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/conf/config.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/docker-compose.yml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/e3ch/e3ch.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/images/kv.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/images/members.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/images/roles.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/images/setting.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/images/users.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/main.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/errors.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/key.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/member.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/resp.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/roles.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/routers.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/users.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/routers/utils.go" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/package.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/App.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/AuthPanel.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/KeyValue.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/KeyValueCreate.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/KeyValueItem.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/KeyValueSetting.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/Members.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/Roles.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/RolesSetting.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/Setting.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/Users.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/UsersSetting.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/request.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/components/utils.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/css/patch.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/entry.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/src/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/etcd-ui/static/webpack.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/actor/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/concurrent/map/concurrent_map.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/concurrent/map/concurrent_map_bench_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/concurrent/map/concurrent_map_test.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datastructures/list.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datastructures/queue.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/datastructures/set.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/main.go" beforeDir="false" afterPath="$PROJECT_DIR$/example/main.go" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -59,7 +18,47 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/actor/main.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="294">
+              <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+              <folding>
+                <element signature="e#14#111#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/datastructures/list.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="14">
+              <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datastructures/set.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/datastructures/queue.go">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="22" selection-start-column="22" selection-end-column="22" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -104,6 +103,10 @@
         <option value="$PROJECT_DIR$/example/main_aspect.go" />
         <option value="$PROJECT_DIR$/clients/grpc/grpc.go" />
         <option value="$PROJECT_DIR$/example/main.go" />
+        <option value="$PROJECT_DIR$/actor/main.go" />
+        <option value="$PROJECT_DIR$/datastructures/list.go" />
+        <option value="$PROJECT_DIR$/datastructures/set.go" />
+        <option value="$PROJECT_DIR$/datastructures/queue.go" />
       </list>
     </option>
   </component>
@@ -145,6 +148,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="DefaultGoTemplateProperty" value="Go File" />
+    <property name="GO_FMT" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.gopath.indexing.explicitly.defined" value="true" />
     <property name="go.vendoring.notification.had.been.shown" value="true" />
@@ -155,6 +159,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\Cloudera-Sz\src\github.com\Cloudera-Sz\golang-micro\concurrent\map" />
       <recent name="E:\Cloudera-Sz\src\github.com\Cloudera-Sz\golang-micro" />
       <recent name="E:\Cloudera-Sz\src\github.com\Cloudera-Sz\golang-micro\etcd-ui" />
     </key>
@@ -171,13 +176,22 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Go Build.go build main.go (2)">
+  <component name="RunManager" selected="Go Build.go build main.go (1)">
     <configuration name="go build github.com/Cloudera-Sz/golang-micro/example" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
       <module name="golang-micro" />
       <working_directory value="$PROJECT_DIR$/" />
       <kind value="PACKAGE" />
       <filePath value="$PROJECT_DIR$/" />
       <package value="github.com/Cloudera-Sz/golang-micro/example" />
+      <directory value="$PROJECT_DIR$/" />
+      <method v="2" />
+    </configuration>
+    <configuration name="go build main.go (1)" type="GoApplicationRunConfiguration" factoryName="Go Application" temporary="true" nameIsGenerated="true">
+      <module name="golang-micro" />
+      <working_directory value="$PROJECT_DIR$/" />
+      <kind value="FILE" />
+      <filePath value="$PROJECT_DIR$/actor/main.go" />
+      <package value="github.com/Cloudera-Sz/golang-micro" />
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
@@ -198,17 +212,6 @@
       <directory value="$PROJECT_DIR$/" />
       <method v="2" />
     </configuration>
-    <configuration name="BenchmarkLimitPool in github.com/Cloudera-Sz/golang-micro/worker" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
-      <module name="golang-micro" />
-      <working_directory value="$PROJECT_DIR$/worker" />
-      <framework value="gobench" />
-      <kind value="PACKAGE" />
-      <package value="github.com/Cloudera-Sz/golang-micro/worker" />
-      <directory value="$PROJECT_DIR$/" />
-      <filePath value="$PROJECT_DIR$/" />
-      <pattern value="^BenchmarkLimitPool$" />
-      <method v="2" />
-    </configuration>
     <configuration name="TestLimitPool in github.com/Cloudera-Sz/golang-micro/worker" type="GoTestRunConfiguration" factoryName="Go Test" temporary="true" nameIsGenerated="true">
       <module name="golang-micro" />
       <working_directory value="$PROJECT_DIR$/worker" />
@@ -222,11 +225,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="Go Build.go build main.go (1)" />
         <item itemvalue="Go Build.go build main.go (2)" />
         <item itemvalue="Go Build.go build main.go" />
         <item itemvalue="Go Build.go build github.com/Cloudera-Sz/golang-micro/example" />
         <item itemvalue="Go Test.TestLimitPool in github.com/Cloudera-Sz/golang-micro/worker" />
-        <item itemvalue="Go Test.BenchmarkLimitPool in github.com/Cloudera-Sz/golang-micro/worker" />
       </list>
     </recent_temporary>
   </component>
@@ -246,16 +249,16 @@
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.4989339" weight="0.329718" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.42407808" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.64445627" visible="true" weight="0.39262474" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49946696" weight="0.42407808" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="8" />
       <window_info anchor="bottom" id="Version Control" order="9" />
-      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.4989339" visible="true" weight="0.329718" />
-      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5010661" side_tool="true" visible="true" weight="0.329718" />
+      <window_info anchor="bottom" id="Terminal" order="10" sideWeight="0.49573562" weight="0.329718" />
+      <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.3555437" side_tool="true" visible="true" weight="0.39262474" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -270,6 +273,8 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/go-lib" />
     </ignored-roots>
+    <MESSAGE value="etcd-ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="etcd-ui" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -284,14 +289,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/etcd-ui/LICENSE" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/Dockerfile" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/conf/config.go" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/images/users.png" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/images/setting.png" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/images/roles.png" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/images/members.png" />
-    <entry file="file://$PROJECT_DIR$/etcd-ui/images/kv.png" />
     <entry file="file://$PROJECT_DIR$/etcd-ui/routers/errors.go" />
     <entry file="file://$PROJECT_DIR$/etcd-ui/routers/member.go" />
     <entry file="file://$PROJECT_DIR$/etcd-ui/routers/key.go" />
@@ -550,6 +547,60 @@
           <folding>
             <element signature="e#14#31#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/concurrent/map/concurrent_map.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="98">
+          <caret line="7" column="20" selection-start-line="7" selection-start-column="20" selection-end-line="7" selection-end-column="20" />
+          <folding>
+            <element signature="e#14#49#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/concurrent/map/concurrent_map_bench_test.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/concurrent/map/concurrent_map_test.go">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://E:/GoProjects/src/github.com/AsynkronIT/protoactor-go/actor/pid.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="177">
+          <caret line="43" column="16" selection-start-line="43" selection-start-column="16" selection-end-line="43" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/actor/main.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="294">
+          <caret line="21" column="11" selection-start-line="21" selection-start-column="11" selection-end-line="21" selection-end-column="11" />
+          <folding>
+            <element signature="e#14#111#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datastructures/set.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datastructures/queue.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="22" selection-start-column="22" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/datastructures/list.go">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="14">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>
