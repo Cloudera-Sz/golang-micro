@@ -1,6 +1,7 @@
 package jaeger
 
 import (
+	"context"
 	"errors"
 	"io"
 	"log"
@@ -15,6 +16,8 @@ import (
 	jaegerlog "github.com/uber/jaeger-client-go/log"
 	"github.com/uber/jaeger-client-go/rpcmetrics"
 	"github.com/uber/jaeger-lib/metrics"
+
+	tags "github.com/opentracing/opentracing-go/ext"
 )
 
 //InitTracer ..
@@ -141,4 +144,30 @@ func InitGlobalTracerFromEtcd(etcdCli *etcd.Client, appName, profile string) (cl
 		log.Println("jaeger changed")
 	})
 	return closer, err
+}
+
+//GetSpan 获取span
+func GetSpan(ctx context.Context, name string, f func(span opentracing.Span)) (context.Context, opentracing.Span) {
+	var span opentracing.Span
+	if span = opentracing.SpanFromContext(ctx); span != nil {
+		span = opentracing.StartSpan(name, opentracing.ChildOf(span.Context()))
+	} else {
+		span = opentracing.StartSpan(name)
+	}
+	f(span)
+	ctx = opentracing.ContextWithSpan(ctx, span)
+	return ctx, span
+}
+
+//GetDefaultSpan 获取默认 span
+func GetDefaultSpan(ctx context.Context, name string) (context.Context, opentracing.Span) {
+	return GetSpan(ctx, name, func(span opentracing.Span) {
+	})
+}
+
+//GetServerSpan 获取server span
+func GetServerSpan(ctx context.Context, name string) (context.Context, opentracing.Span) {
+	return GetSpan(ctx, name, func(span opentracing.Span) {
+		tags.SpanKindRPCServer.Set(span)
+	})
 }

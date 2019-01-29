@@ -162,15 +162,18 @@ func NewClientFromEtcd(etcdCli *etcd.Client, appName, profile string, values ...
 }
 
 //ClientWithContext ...
-func (c *Client) ClientWithContext(ctx context.Context) *Client {
+func (c *Client) ClientWithContext(ctx context.Context, name string) *Client {
 	if ctx == nil {
 		return c
 	}
-	parentSpan := opentracing.SpanFromContext(ctx)
-	if parentSpan == nil {
-		return c
-	}
-	c.DB = c.DB.Set(parentSpanGormKey, parentSpan)
+	_, span := jaeger.GetDefaultSpan(ctx, name)
+	//parentSpan := opentracing.SpanFromContext(ctx)
+	//if parentSpan == nil {
+	//	return c
+	//}
+	//c.DB = c.DB.Set(parentSpanGormKey, parentSpan)
+
+	c.DB = c.DB.Set(parentSpanGormKey, span)
 	c.DB = c.DB.Set(spanGormTracer, c.Tracer)
 	return c
 }

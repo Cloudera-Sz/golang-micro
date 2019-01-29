@@ -40,6 +40,7 @@ func main() {
 	if err != nil {
 		panic(err.Error())
 	}
+	db.ClientWithContext(context.Background(), "hello")
 	db.Model(&user.User{Id: 1, UserName: "admin"}).Update(&user.User{Id: 1})
 	time.Sleep(time.Duration(20) * time.Second)
 }
