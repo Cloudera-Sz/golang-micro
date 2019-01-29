@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
 	"github.com/Cloudera-Sz/golang-micro/clients/gorm"
+	"github.com/Cloudera-Sz/golang-micro/example/service/coupon"
 	"github.com/Cloudera-Sz/golang-micro/example/service/order"
 	"github.com/Cloudera-Sz/golang-micro/example/service/user"
 	"os"
@@ -35,7 +36,7 @@ func main() {
 	}
 	fmt.Println(v)
 
-	db, err := gorm.NewClientFromEtcd(client, "user", "dev", &order.Order{}, &user.User{})
+	db, err := gorm.NewClientFromEtcd(client, "user", "dev", &order.Order{}, &user.User{}, &coupon.Coupon{})
 	if err != nil {
 		panic(err.Error())
 	}

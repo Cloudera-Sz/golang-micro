@@ -1,0 +1,47 @@
+syntax = "proto3";
+// protoc --go_out=plugins=grpc:../service/order/proto order.proto
+
+import "base/base.proto";
+package pb;
+
+
+message Order{
+    int64 id=1;
+    int64 user_id=2;
+    base.Timestamp create_time = 3;
+    base.Timestamp update_time = 4;
+}
+
+message OrderListRequest {
+    base.PageRequest page=1;
+    string keyword=2;
+}
+
+message OrderListResponse {
+    base.Error error=1;
+    int64 total=2;
+    repeated Order rows=3;
+}
+
+message OrderGetRequest {
+    int64 id=1;
+}
+
+message OrderGetResponse {
+    Order order=1;
+}
+
+
+message OrderCreateRequest {
+    Order order=1;
+}
+
+message OrderCreateResponse {
+    base.Error error=1;
+}
+
+service OrderService {
+    rpc List(OrderListRequest) returns(OrderListResponse) {}
+    rpc Get(OrderGetRequest) returns(OrderGetResponse) {}
+    rpc Create(OrderCreateRequest) returns(OrderCreateResponse) {}
+}

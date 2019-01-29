@@ -1,0 +1,11 @@
+db:
+  server: default
+  name: MicroTest
+redis:
+  server: default
+  name: 2
+jaeger:
+  server: default
+  service_name: coupon
+rabbitmq:
+  server: default

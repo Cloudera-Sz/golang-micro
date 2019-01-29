@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package base;
+// protoc --go_out=plugins=grpc:. base.proto
+option go_package = "github.com/Cloudera-Sz/golang-micro/example/proto/base";
+//import "google/protobuf/timestamp.proto"; google.protobuf.Timestamp
+message Timestamp {
+
+  // Represents seconds of UTC time since Unix epoch
+  // 1970-01-01T00:00:00Z. Must be from 0001-01-01T00:00:00Z to
+  // 9999-12-31T23:59:59Z inclusive.
+  int64 seconds = 1;
+
+  // Non-negative fractions of a second at nanosecond resolution. Negative
+  // second values with fractions must still have non-negative nanos values
+  // that count forward in time. Must be from 0 to 999,999,999
+  // inclusive.
+  int32 nanos = 2;
+}
+
+message Error {
+  int32 code = 1;
+  string message = 2;
+}
+
+message PageRequest{
+  int32 page=1;
+  int32 pagesize=2;
+}
