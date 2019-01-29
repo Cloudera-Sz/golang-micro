@@ -1,6 +1,7 @@
 package rabbitmq
 
 import (
+	"fmt"
 	"log"
 	"testing"
 	"time"
@@ -31,6 +32,7 @@ func TestReceiveHello(t *testing.T) {
 
 	go func() {
 		for d := range msgs {
+			fmt.Println(d.Headers)
 			log.Printf("Received a message: %s", d.Body)
 		}
 	}()

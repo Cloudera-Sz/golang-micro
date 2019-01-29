@@ -16,7 +16,6 @@ func TestSendHello(t *testing.T) {
 	}
 	topic := "hello2"
 	mqCli, err := NewClientFromEtcd(etcdCli, "user", "dev", []string{topic})
-
 	body := "hello"
 	err = mqCli.Chs[topic].Publish(
 		"",    // exchange

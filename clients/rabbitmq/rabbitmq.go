@@ -119,6 +119,9 @@ func (c *Client) PublishMessage(ctx context.Context, exhcange, key string, immed
 		defer span.Finish()
 		ctx = opentracing.ContextWithSpan(ctx, span)
 	}
+	if span == nil {
+		_, span = jaeger.GetServerSpan(ctx, "mq1")
+	}
 	msg.Headers = make(map[string]interface{})
 	if err := amqptracer.Inject(span, msg.Headers); err != nil {
 		if span != nil {
@@ -136,4 +139,20 @@ func (c *Client) PublishMessage(ctx context.Context, exhcange, key string, immed
 		return errors.New("channel is not exist")
 	}
 	return ch.Publish(exhcange, key, false, immediate, msg)
+}
+
+func (c *Client) ConsumeMessage(ctx context.Context, msg *amqp.Delivery, f func()) {
+	// Extract the span context out of the AMQP header.
+	spCtx, _ := amqptracer.Extract(msg.Headers)
+	sp := opentracing.StartSpan(
+		"ConsumeMessage",
+		opentracing.FollowsFrom(spCtx),
+	)
+	defer sp.Finish()
+
+	// Update the context with the span for the subsequent reference.
+	ctx = opentracing.ContextWithSpan(ctx, sp)
+	f()
+	// Actual message processing.
+	//return nil //ProcessMessage(ctx, msg)
 }

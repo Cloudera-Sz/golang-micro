@@ -67,7 +67,6 @@ func NewClient(config *config.DBConfig) (*Client, error) {
 		// USE gorm;
 		// CREATE USER gorm FROM LOGIN gorm;
 		// sp_changedbowner 'gorm';
-		fmt.Println("testing mssql...")
 		if dbURL == "" {
 			dbURL = fmt.Sprintf("sqlserver://%s:%s@%s:%d?database=%s",
 				config.User, config.Password, config.Host, config.Port, config.Name)

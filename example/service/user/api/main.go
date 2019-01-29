@@ -4,8 +4,8 @@ import (
 	"context"
 	"fmt"
 	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
-	mg "github.com/Cloudera-Sz/golang-micro/clients/grpc"
 	"github.com/Cloudera-Sz/golang-micro/example/service/order/proto"
+	"google.golang.org/grpc"
 	"log"
 	"strconv"
 	"time"
@@ -35,7 +35,7 @@ func CreateOrder(c *gin.Context) {
 		return
 	}
 	// Set up a connection to the server.
-	conn, err := mg.NewClientConn(etcdCli, "order", "dev") // grpc.Dial(":50051", grpc.WithInsecure())
+	conn, err := grpc.Dial(":50051", grpc.WithInsecure())
 	if err != nil {
 		//log.Fatalf("did not connect: %v", err)
 		fmt.Println(err.Error())

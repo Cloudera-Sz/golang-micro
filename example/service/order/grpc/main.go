@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"github.com/Cloudera-Sz/golang-micro/clients/etcd"
-	mg "github.com/Cloudera-Sz/golang-micro/clients/grpc"
 	"github.com/Cloudera-Sz/golang-micro/clients/rabbitmq"
 	"github.com/Cloudera-Sz/golang-micro/example/proto/base"
 	"github.com/Cloudera-Sz/golang-micro/example/service/order/proto"
@@ -33,17 +32,21 @@ func (s *server) Create(ctx context.Context, in *pb.OrderCreateRequest) (respons
 
 	topic := "microtest"
 	mqCli, err := rabbitmq.NewClientFromEtcd(etcdCli, "order", "dev", []string{topic})
-
 	body := string(in.Order.Id)
-	err = mqCli.Chs[topic].Publish(
-		"",    // exchange
-		topic, // routing key
-		false, // mandatory
-		false, // immediate
-		amqp.Publishing{
-			ContentType: "text/plain",
-			Body:        []byte(body),
-		})
+	err = mqCli.PublishMessage(ctx, "", topic, false, amqp.Publishing{
+		ContentType: "text/plain",
+		Body:        []byte(body),
+	})
+	//body := string(in.Order.Id)
+	//err = mqCli.Chs[topic].Publish(
+	//	"",    // exchange
+	//	topic, // routing key
+	//	false, // mandatory
+	//	false, // immediate
+	//	amqp.Publishing{
+	//		ContentType: "text/plain",
+	//		Body:        []byte(body),
+	//	})
 	log.Printf(" [x] Sent %s", body)
 	rabbitmq.FailOnError(err, "Failed to publish a message")
 
@@ -64,10 +67,10 @@ func main() {
 	}
 	s := grpc.NewServer()
 
-	mg.RegisterService(etcdCli, "order", "dev", ":50051", 20)
-	mg.SignalHandler(s, func() {
-		fmt.Println("------------------")
-	})
+	//mg.RegisterService(etcdCli, "order", "dev", ":50051", 20)
+	//mg.SignalHandler(s, func() {
+	//	fmt.Println("------------------")
+	//})
 	pb.RegisterOrderServiceServer(s, &server{})
 	if err := s.Serve(lis); err != nil {
 		//log.Fatalf("failed to serve: %v", err)
