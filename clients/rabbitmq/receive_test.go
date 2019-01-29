@@ -9,7 +9,7 @@ import (
 )
 
 func TestReceiveHello(t *testing.T) {
-	etcdCli, err := etcd.NewClient(5 * time.Second)
+	etcdCli, err := etcd.NewClient(5*time.Second, "")
 	if err != nil {
 		log.Panicln(err)
 	}

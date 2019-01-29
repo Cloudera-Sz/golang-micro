@@ -57,7 +57,7 @@ func NewConfig(configPath string) (map[string]*config.AppConfig, *config.Default
 func SyncConfig(dialTimeout time.Duration, requestTimeout time.Duration, configPath string) error {
 	profile := filepath.Base(configPath)
 	appConfigMap, defaultConfig := NewConfig(configPath)
-	cli, err := etcd.NewClient(dialTimeout)
+	cli, err := etcd.NewClient(dialTimeout, "")
 	defer cli.Close()
 	if err != nil {
 		log.Panicln("etcd connect failed,error:", err)

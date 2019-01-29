@@ -9,7 +9,7 @@ import (
 )
 
 func TestNewClientFromEtcd(t *testing.T) {
-	etcdCli, err := etcd.NewClient(5 * time.Second)
+	etcdCli, err := etcd.NewClient(5*time.Second, "")
 	if err != nil {
 		t.Log(err)
 		t.Fail()

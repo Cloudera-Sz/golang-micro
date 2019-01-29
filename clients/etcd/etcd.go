@@ -9,7 +9,7 @@ import (
 	"time"
 
 	"github.com/coreos/etcd/clientv3"
-	yaml "github.com/go-yaml/yaml"
+	"github.com/go-yaml/yaml"
 )
 
 //Client .
@@ -18,10 +18,12 @@ type Client struct {
 }
 
 //NewClient .
-func NewClient(dialTimeout time.Duration) (*Client, error) {
-	etcdServer := os.Getenv("ETCD_SERVER")
+func NewClient(dialTimeout time.Duration, etcdServer string) (*Client, error) {
 	if etcdServer == "" {
-		etcdServer = "localhost:2379"
+		etcdServer = os.Getenv("ETCD_SERVER")
+		if etcdServer == "" {
+			etcdServer = "localhost:2379"
+		}
 	}
 	cli, err := clientv3.New(clientv3.Config{
 		Endpoints:   []string{etcdServer},

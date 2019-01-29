@@ -8,7 +8,7 @@ import (
 )
 
 func TestInitTracerFromEtcd(t *testing.T) {
-	etcdCli, err := etcd.NewClient(5 * time.Second)
+	etcdCli, err := etcd.NewClient(5*time.Second, "")
 	if err != nil {
 		t.Log(err)
 		t.Fail()
@@ -45,7 +45,7 @@ func TestInitTracerFromEtcd(t *testing.T) {
 }
 
 func TestInitGlobalTracerFromEtcd(t *testing.T) {
-	etcdCli, err := etcd.NewClient(5 * time.Second)
+	etcdCli, err := etcd.NewClient(5*time.Second, "")
 	if err != nil {
 		t.Log(err)
 		t.Fail()

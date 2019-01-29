@@ -20,7 +20,7 @@ func main() {
 	if err := os.Setenv("ETCD_SERVER", "192.168.1.52:2379"); err != nil {
 		panic(err.Error())
 	}
-	client, err := etcd.NewClient(time.Duration(5) * time.Second)
+	client, err := etcd.NewClient(time.Duration(5)*time.Second, "")
 	if err != nil {
 		panic(err.Error())
 	}
